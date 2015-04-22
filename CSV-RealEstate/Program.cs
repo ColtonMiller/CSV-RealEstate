@@ -42,38 +42,51 @@ namespace CSV_RealEstate
 
         public static List<RealEstateSale> GetRealEstateSaleList()
         {
-         
+            //make temp list
+            List<RealEstateSale> tempList = new List<RealEstateSale> { }; 
             //read in the realestatedata.csv file.  As you process each row, you'll add a new 
             // RealEstateData object to the list for each row of the document, excluding the first.  bool skipFirstLine = true;
-         
-            return new List<RealEstateSale>();
+            using (System.IO.StreamReader reader = new System.IO.StreamReader("realestatedata.csv"))
+            {
+                //skips first line
+                string firstline = reader.ReadLine();
+
+
+                //loop all to temp list
+                while (!reader.EndOfStream)
+                {
+                    tempList.Add(new RealEstateSale(reader.ReadLine()));
+                }
+            }
+            
+            return tempList;
         }
 
         public static double GetAverageSquareFootageByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city) 
         {
-            return 0.0;
+            return realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Average(y => y.SqFeet);
         }
 
         public static decimal GetTotalSalesByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
-            return 0.0m;
+            return realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Sum(y => y.Price);
         }
 
         public static int GetNumberOfSalesByRealEstateTypeAndZip(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string zipcode)
         {
-            return 0;
+            return realEstateDataList.Where(x => x.Type == realEstateType && x.Zip == int.Parse(zipcode)).Count() ;
         }
 
         
         public static decimal GetAverageSalePriceByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
             //Must round to 2 decimal points
-            return 0.0m;
+            return Math.Round(Convert.ToDecimal(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Average(y => y.Price)),2);
         }
         public static decimal GetAveragePricePerSquareFootByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
             //Must round to 2 decimal points
-            return 0.0m;
+            return Math.Round(Convert.ToDecimal(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()), 2);
         }
 
         public static int GetNumberOfSalesByDayOfWeek(List<RealEstateSale> realEstateDataList, DayOfWeek dayOfWeek)
@@ -96,13 +109,64 @@ namespace CSV_RealEstate
     public enum RealEstateType
     {
         //fill in with enum types: Residential, MultiFamily, Condo, Lot
+        Residential,
+        MultiFamily,
+        Condo,
+        Lot
     }
     class RealEstateSale
     {
         //Create properties, using the correct data types (not all are strings) for all columns of the CSV
+        public string Street { get; set; }
+        public string City { get; set; }
+        public int Zip { get; set; }
+        public string State { get; set; }
+        public int Bed { get; set; }
+        public int Bath { get; set; }
+        public int SqFeet { get; set; }
+        public RealEstateType Type { get; set; }
+        public DateTime SaleDate { get; set; }
+        public int Price { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        
 
         //The constructor will take a single string arguement.  This string will be one line of the real estate data.
         // Inside the constructor, you will seperate the values into their corrosponding properties, and do the necessary conversions
+        public RealEstateSale(string List)
+        {
+            //split by new line
+            string[] ListData = List.Split(',');
+            //set all properties to their index in ListData
+            this.Street = ListData[0];
+            this.City = ListData[1];
+            this.Zip = int.Parse(ListData[2]);
+            this.State = ListData[3];
+            this.Bed = int.Parse(ListData[4]);
+            this.Bath = int.Parse(ListData[5]);
+            this.SqFeet = int.Parse(ListData[6]);
+            //convert string to enum by switch
+            switch (ListData[7])
+            {
+                case "Residential":
+                   this.Type = RealEstateType.Residential;
+                    break;
+                case "Condo":
+                    this.Type = RealEstateType.Condo;
+                    break;
+                case "Multi-Family":
+                    this.Type = RealEstateType.MultiFamily;
+                    break;
+            }
+            if (SqFeet == 0)
+            {
+                this.Type = RealEstateType.Lot;
+            }
+            this.SaleDate = DateTime.Parse(ListData[8]);
+            this.Price = int.Parse(ListData[9]);
+            this.Latitude = double.Parse(ListData[10]);
+            this.Longitude = double.Parse(ListData[11]);
+        }
 
         //When computing the RealEstateType, if the square footage is 0, then it is of the Lot type, otherwise, use the string
         // value of the "Type" column to determine its corresponding enumeration type.
