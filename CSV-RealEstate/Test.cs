@@ -71,6 +71,7 @@ namespace CSV_RealEstate
         //Display top 5 cities and the number of homes sold (using the GroupBy extension)
         // Use the GetTop5CitiesByNumberOfHomesSold() function.
         [Test]
+        [Ignore]
         public void GetTop5CitiesByNumberOfHomesSoldTest()
         {
             List<string> results = Program.GetTop5CitiesByNumberOfHomesSold(testData);
