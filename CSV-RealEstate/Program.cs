@@ -38,6 +38,11 @@ namespace CSV_RealEstate
             //Extra Credit:
             //Display top 5 cities by the number of homes sold (using the GroupBy extension)
             // Use the GetTop5CitiesByNumberOfHomesSold() function for testing.
+            foreach (string item in GetTop5CitiesByNumberOfHomesSold(realEstateSaleList))
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadKey();
 
         }
 
@@ -65,16 +70,19 @@ namespace CSV_RealEstate
 
         public static double GetAverageSquareFootageByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city) 
         {
+            //filter by type and city to get average sqfeet
             return realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Average(y => y.SqFeet);
         }
 
         public static decimal GetTotalSalesByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
+            //filter type and city to get the total sales in city by type 
             return realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Sum(y => y.Price);
         }
 
         public static int GetNumberOfSalesByRealEstateTypeAndZip(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string zipcode)
         {
+            //number of sales by type and zipcode
             return realEstateDataList.Where(x => x.Type == realEstateType && x.Zip == int.Parse(zipcode)).Count() ;
         }
 
@@ -82,27 +90,32 @@ namespace CSV_RealEstate
         public static decimal GetAverageSalePriceByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
             //Must round to 2 decimal points
+            //average saleprice by type and city
             return Math.Round(Convert.ToDecimal(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Average(y => y.Price)),2);
         }
         public static decimal GetAveragePricePerSquareFootByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
             //Must round to 2 decimal points
+            //filter by type and city and get the average of price/sqfeet rounds to 2 decimals
             return Math.Round(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Average(y => (decimal)y.Price/(decimal)y.SqFeet), 2);
         }
 
         public static int GetNumberOfSalesByDayOfWeek(List<RealEstateSale> realEstateDataList, DayOfWeek dayOfWeek)
         {
+            //filters sales by day of week
             return realEstateDataList.Where(x => x.SaleDate.DayOfWeek == dayOfWeek).Count();
         }
 
         public static double GetAverageBedsByRealEstateTypeAndCityHigherThanPrice(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city, decimal price)
         {
             //Must round to 2 decimal points
+            //gets average beds by type, city, and if is higher than price 
             return Math.Round(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower() && x.Price > price).Average(y => y.Bed), 2);
         }
 
         public static List<string> GetTop5CitiesByNumberOfHomesSold(List<RealEstateSale> realEstateDataList)
         {
+            //groups orders selects many lists puts them together then grabs the city values
             return realEstateDataList.GroupBy(x => x.City).OrderByDescending(y => y.Count()).Take(5).SelectMany(z => z).Select(a => a.City).Distinct().ToList();
         }
     }
