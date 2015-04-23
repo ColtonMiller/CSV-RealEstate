@@ -103,7 +103,7 @@ namespace CSV_RealEstate
 
         public static List<string> GetTop5CitiesByNumberOfHomesSold(List<RealEstateSale> realEstateDataList)
         {
-            return realEstateDataList.GroupBy(x => x.City).OrderByDescending(y => y.Count()).First().Select(z => z.City).Take(5).ToList();
+            return realEstateDataList.GroupBy(x => x.City).OrderByDescending(y => y.Count()).Take(5).SelectMany(z => z).Select(a => a.City).Distinct().ToList();
         }
     }
 

@@ -23,3 +23,4 @@ E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\CSV-RealEstate.pdb
 E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\nunit.framework.dll
 E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\nunit.framework.xml
 E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\obj\Debug\CSV-RealEstate.pdb
+C:\Users\Technologist\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\obj\Debug\CSV-RealEstate.csprojResolveAssemblyReference.cache
