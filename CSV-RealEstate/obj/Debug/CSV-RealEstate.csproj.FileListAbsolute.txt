@@ -15,3 +15,11 @@ C:\Users\Technologist\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\C
 C:\Users\Technologist\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\nunit.framework.dll
 C:\Users\Technologist\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\nunit.framework.xml
 C:\Users\Technologist\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\obj\Debug\CSV-RealEstate.pdb
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\CSV-RealEstate.exe.config
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\obj\Debug\CSV-RealEstate.exe
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\realestatedata.csv
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\CSV-RealEstate.exe
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\CSV-RealEstate.pdb
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\nunit.framework.dll
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\bin\Debug\nunit.framework.xml
+E:\Documents\GitHub\CSV-RealEstate\CSV-RealEstate\obj\Debug\CSV-RealEstate.pdb

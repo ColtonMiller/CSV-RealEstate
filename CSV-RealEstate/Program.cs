@@ -19,7 +19,7 @@ namespace CSV_RealEstate
             
             //Display the average square footage of a Condo sold in the city of Sacramento, 
             //Use the GetAverageSquareFootageByRealEstateTypeAndCity() function.
-
+            Console.WriteLine(GetAverageSquareFootageByRealEstateTypeAndCity(realEstateSaleList,RealEstateType.Condo , "Sacramento" ));
             //Display the total sales of all residential homes in Elk Grove.  Use the GetTotalSalesByRealEstateTypeAndCity() function for testing.
 
             //Display the total number of residential homes sold in the zip code 95842.  Use the GetNumberOfSalesByRealEstateTypeAndZip() function for testing.
@@ -86,23 +86,23 @@ namespace CSV_RealEstate
         public static decimal GetAveragePricePerSquareFootByRealEstateTypeAndCity(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city)
         {
             //Must round to 2 decimal points
-            return Math.Round(Convert.ToDecimal(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()), 2);
+            return Math.Round(Convert.ToDecimal(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower()).Average(y => y.Price/y.SqFeet)) , 2);
         }
 
         public static int GetNumberOfSalesByDayOfWeek(List<RealEstateSale> realEstateDataList, DayOfWeek dayOfWeek)
         {
-            return 0;
+            return realEstateDataList.Where(x => x.SaleDate.DayOfWeek == dayOfWeek).Count();
         }
 
         public static double GetAverageBedsByRealEstateTypeAndCityHigherThanPrice(List<RealEstateSale> realEstateDataList, RealEstateType realEstateType, string city, decimal price)
         {
             //Must round to 2 decimal points
-            return 0.0;
+            return Math.Round(realEstateDataList.Where(x => x.Type == realEstateType && x.City.ToLower() == city.ToLower() && x.Price > price).Average(y => y.Bed), 2);
         }
 
         public static List<string> GetTop5CitiesByNumberOfHomesSold(List<RealEstateSale> realEstateDataList)
         {
-            return new List<string>();
+            return realEstateDataList.GroupBy(x => x.City).OrderByDescending(y => y.Count()).First().Select(z => z.City).Take(5).ToList();
         }
     }
 
